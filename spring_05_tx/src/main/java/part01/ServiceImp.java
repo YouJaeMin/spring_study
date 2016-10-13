@@ -20,7 +20,8 @@ public class ServiceImp implements Service {
 
 	@Override
 	public void insertProcess() {
-
+		dao.insertMethod(new MemDTO(40, "용팔이", 50, "경기"));
+		dao.insertMethod(new MemDTO(41, "유대위", 20, "대전"));
 	}
 
 }

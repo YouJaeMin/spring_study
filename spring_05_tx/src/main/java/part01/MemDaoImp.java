@@ -16,6 +16,6 @@ public class MemDaoImp implements MemDAO {
 
 	@Override
 	public void insertMethod(MemDTO dto) {
-
+		sqlSession.insert("mem.ins", dto);
 	}
 }
