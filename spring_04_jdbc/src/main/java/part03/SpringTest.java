@@ -12,9 +12,9 @@ public class SpringTest {
 
 		MemDAO dao = (MemDAO) context.getBean("dao");
 
-//		 dao.insertMethod(new MemDTO("박우우", 20, "청주"));
-//		 dao.updateMethod(new MemDTO(18, "홍홍홍"));
-		 dao.deleteMethod(19);
+		// dao.insertMethod(new MemDTO("박우우", 20, "청주"));
+		// dao.updateMethod(new MemDTO(18, "홍홍홍"));
+		dao.deleteMethod(19);
 
 		// MemDTO dto = dao.one(21);
 		// System.out.printf("%d %s %d %s \n", dto.getNum(), dto.getName(),

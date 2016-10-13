@@ -14,8 +14,7 @@
 	</insert>
 	
 	<update id="upd" parameterType="part03.MemDTO">
-		update mem
-		set name = #{name} where num = #{num}
+		update mem set name = #{name} where num = #{num}
 	</update>
 	
 	<delete id="del" parameterType="java.lang.Integer">
