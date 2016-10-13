@@ -5,7 +5,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 
-	<!-- 1. DataSource빈 선언  -->
+	<!-- 1. DataSource빈 선언 -->
 	<!-- dataSource 빈을 생성하기 위한 첫번째 방법 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -57,16 +57,12 @@
 		</property>
 	</bean>
 
-	<!-- 2. SqlSessionTemplate 빈 선언 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" index="0" />
-	</bean>
-
 
 	<!-- 3. MemDaoImp 빈 선언 -->
 
 	<bean id="dao" class="part04_daoSuppart.MemDaoImp">
-		<property name="sqlSessionTemplate" ref="sqlSession" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+
 	</bean>
 
 </beans>
