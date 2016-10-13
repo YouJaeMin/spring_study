@@ -1,4 +1,4 @@
-package part03;
+package part04_daoSuppart;
 
 import java.util.List;
 
@@ -26,32 +26,32 @@ public class MemDaoImp implements MemDAO {
 
 	@Override
 	public List<MemDTO> list() {
-		return sqlSessionTemplate.selectList("mem.all");
+		return sqlSessionTemplate.selectList("mem2.all");
 	}
 
 	@Override
 	public void insertMethod(MemDTO dto) {
-		sqlSessionTemplate.insert("mem.ins", dto);
+		sqlSessionTemplate.insert("mem2.ins", dto);
 	}
 
 	@Override
 	public void updateMethod(MemDTO dto) {
-		sqlSessionTemplate.update("mem.upd", dto);
+		sqlSessionTemplate.update("mem2.upd", dto);
 	}
 
 	@Override
 	public void deleteMethod(int num) {
-		sqlSessionTemplate.delete("mem.del", num);
+		sqlSessionTemplate.delete("mem2.del", num);
 	}
 
 	@Override
 	public MemDTO one(int num) {
-		return sqlSessionTemplate.selectOne("mem.one", num);
+		return sqlSessionTemplate.selectOne("mem2.one", num);
 	}
 
 	@Override
 	public int countMethod() {
-		return sqlSessionTemplate.selectOne("mem.cnt");
+		return sqlSessionTemplate.selectOne("mem2.cnt");
 	}
 
 }

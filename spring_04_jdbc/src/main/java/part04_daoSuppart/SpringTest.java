@@ -1,4 +1,6 @@
-package part03;
+package part04_daoSuppart;
+
+import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -6,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringTest {
 	public static void main(String[] args) {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("part03/jdbc.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("part04_daoSuppart/jdbc.xml");
 
 		MemDAO dao = (MemDAO) context.getBean("dao");
 
@@ -14,16 +16,16 @@ public class SpringTest {
 		// dao.updateMethod(new MemDTO(18, "홍홍홍"));
 		// dao.deleteMethod(19);
 
-		MemDTO dto = dao.one(21);
-		System.out.printf("%d %s %d %s \n", dto.getNum(), dto.getName(), dto.getAge(), dto.getLoc());
-
-		System.out.println(dao.countMethod());
-
-		// List<MemDTO> list = dao.list();
-		// for (MemDTO dto : list) {
+		// MemDTO dto = dao.one(21);
 		// System.out.printf("%d %s %d %s \n", dto.getNum(), dto.getName(),
 		// dto.getAge(), dto.getLoc());
-		// }
+
+		// System.out.println(dao.countMethod());
+
+		List<MemDTO> list = dao.list();
+		for (MemDTO dto : list) {
+			System.out.printf("%d %s %d %s \n", dto.getNum(), dto.getName(), dto.getAge(), dto.getLoc());
+		}
 
 	}
 }
