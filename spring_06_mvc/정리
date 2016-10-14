@@ -1,0 +1,5 @@
+get server .xml URLEncoding = "UTF-8"
+
+post	1) request.setCharterEncoding("UTF-8")
+		2) Filter 인터페이스를 상속받아 클래스로 구현 등록시킴 @webFilter (어노테이션을 이용)
+		3) 스프링에서는 CharacterEncodingFilter 등록
