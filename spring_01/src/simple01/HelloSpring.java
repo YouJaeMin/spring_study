@@ -11,6 +11,6 @@ public class HelloSpring {
 		// MessageBean 클래스 이름을 직접적으로 사용하고 있기 때문에
 		// 높은 결합도를 가지고 있다.
 		MessageBean bean = new MessageBean();
-		bean.sayHello("springd");
+		bean.sayHello("spring1");
 	}
 }
