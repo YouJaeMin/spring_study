@@ -1,0 +1,25 @@
+
+
+		정의
+					커밋
+트랜잭션 -	용어			롤백
+					세이브포인트
+		
+		선언방법		템플릿
+					
+					선언적	<tx
+							@
+
+
+
+MVC 패턴
+
+main - service - dao,dto - orm(mybatis) - db
+(V,C)  (		M		)
+
+model1,model2 의 비교 
+
+Spring MVC 방식을 이용
+
+
+
