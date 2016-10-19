@@ -15,7 +15,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- Filter -->
+	<!-- Filter 한글처리-POST 방식-->
 	<filter>
 		<filter-name>encodingFiltar</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

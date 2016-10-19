@@ -39,7 +39,7 @@
 	<!-- 선언적 트랜색션: <tx:advice> 선언 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="insertProcess" rollback-for="java.lang.Exception" />
+			<tx:method name="*Process" rollback-for="java.lang.Exception" />
 		</tx:attributes>
 	</tx:advice>
 
@@ -64,6 +64,21 @@
 	<bean class="controller.BoardController">
 		<property name="service" ref="service" />
 	</bean>
+
+	<!-- 파일 업로드 시작 -->
+	<!-- 첨부 파일의 임시기억장치 경로 설정 -->
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<!-- <constructor-arg value="c:/temp" /> -->
+		<constructor-arg value="./src/main/webapp/files/" />
+	</bean>
+	<!-- 저장 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="uploadTempDir" ref="uploadDirResource" />
+	</bean>
+	<!-- 파일 업로드 끝 -->
+
+
 
 	<!-- view 빈 선언 -->
 	<bean id="view"

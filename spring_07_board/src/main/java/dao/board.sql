@@ -14,7 +14,13 @@ create table board(
 );
 
 select * from board
-create sequence board_seq start with 1 increment by 1;
+create sequence board_seq 
+start with 1 
+increment by 1 
+nocache
+nocycle;
+
+drop sequence board_seq;
 
 insert into board 
 values(board_seq.nextval, 's1dfsdf','young@aaaa.com','제목1','',sysdate,0,board_seq.nextval,

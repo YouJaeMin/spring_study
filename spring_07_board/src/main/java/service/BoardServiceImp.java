@@ -32,17 +32,18 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void insertProcess(BoardDTO dto) {
-
+		dao.save(dto);
 	}
 
 	@Override
 	public BoardDTO contentProcess(int num) {
-		return null;
+		dao.readCount(num);
+		return dao.content(num);
 	}
 
 	@Override
 	public void reStepProcess(BoardDTO dto) {
-
+		dao.reStepCount(dto);
 	}
 
 	@Override

@@ -8,6 +8,11 @@
 <title>list</title>
 </head>
 <body>
+	
+	<form action="write.sb" id="frm" name="frm" method="get">
+		<input type="submit" id="btnWrite" value="글쓰기"/>
+	</form>
+
 	<div id="bodywrap">
 		<table>
 			<tr>
@@ -20,12 +25,19 @@
 			<c:forEach items="${aList }" var="dto">
 				<tr>
 					<td width="5%">${dto.num}</td>
-					<td width="45%"><c:if test="${dto.re_level !=0 }">
+					<td width="45%">
+						<c:url var="content" value="view.sb">
+							<c:param name="currentPage" value="${pv.currentPage}" />
+							<c:param name="num" value="${dto.num}" />
+						</c:url>
+						<c:if test="${dto.re_level !=0 }">
 							<!-- 정적 페이지 이미지 출력을 위해 web.xml servlet-mapping 등록 -->
 							<img alt="" src="images/level.gif" width="${20*dto.re_level}"
 								height="15" />
 							<img alt="" src="images/re.gif" />
-						</c:if> ${dto.subject}</td>
+						</c:if>
+						<a href="${content}"> ${dto.subject}</a>
+					</td>
 					<td width="20%">${dto.writer}</td>
 					<td width="5%">${dto.readcount}</td>
 				</tr>
@@ -34,7 +46,7 @@
 		</table>
 
 		<div>
-			<c:if test="${pv.startPage != 1 }">
+			<c:if test="${pv.startPage > 1 }">
 				<c:url var="per" value="list.sb">
 					<c:param name="currentPage" value="${pv.startPage - pv.blockPage }"></c:param>
 				</c:url>
