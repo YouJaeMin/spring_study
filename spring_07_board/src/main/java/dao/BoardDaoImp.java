@@ -39,7 +39,7 @@ public class BoardDaoImp implements BoardDAO {
 
 	@Override
 	public void reStepCount(BoardDTO dto) {
-		sqlSession.update("board.reStep");
+		sqlSession.update("board.reStep", dto);
 	}
 
 	@Override
