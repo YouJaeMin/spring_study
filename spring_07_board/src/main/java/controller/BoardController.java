@@ -102,16 +102,12 @@ public class BoardController {
 		}
 		dto.setIp(request.getRemoteAddr());
 
-		System.out.println("test111");
 		if (dto.getRef() != 0) {
-			System.out.println("test2222");
 			service.reStepProcess(dto);
 			int step = dto.getRe_step() + 1;
 			int level = dto.getRe_level() + 1;
 			dto.setRe_step(step);
 			dto.setRe_level(level);
-			
-			System.out.printf("%d %d %d %d %d \n", dto.getNum(), dto.getReadcount(), dto.getRe_level(), dto.getRe_step(), dto.getRef());
 		}
 
 		service.insertProcess(dto);
