@@ -75,16 +75,40 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="uploadTempDir" ref="uploadDirResource" />
+<!-- 		<property name="maxUploadSize"> -->
+<!-- 			<value>1</value> -->
+<!-- 		</property> -->
 	</bean>
+
+<!-- 	<bean id="exceptionResolver" -->
+<!-- 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
+<!-- 		<property name="exceptionMappings"> -->
+<!-- 			<props> -->
+<!-- 				<prop -->
+<!-- 					key="org.springframework.web.multipart.MaxUploadSizeExceededException"> -->
+<!-- 					/error/imgUploadErr -->
+<!-- 				</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
 	<!-- 파일 업로드 끝 -->
-
-
+	<!-- 파일 다운로드 -->
+	<bean id="download" class="view.BoardDownLoadView">
+		<property name="dao" ref="bdao" />
+	</bean>
 
 	<!-- view 빈 선언 -->
-	<bean id="view"
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+
+	<!-- 다른 뷰와 같이 사용될떄는 우선순위를 낮게 설정한다. -->
+	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/" />
 		<property name="suffix" value=".jsp" />
+		<property name="order" value="2"></property>
 	</bean>
 
 </beans>

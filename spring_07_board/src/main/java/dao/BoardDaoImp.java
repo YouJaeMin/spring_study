@@ -39,7 +39,7 @@ public class BoardDaoImp implements BoardDAO {
 
 	@Override
 	public void reStepCount(BoardDTO dto) {
-		sqlSession.update("board.reStep", dto);
+		sqlSession.update("board.reStepCount", dto);
 	}
 
 	@Override
@@ -49,12 +49,12 @@ public class BoardDaoImp implements BoardDAO {
 
 	@Override
 	public BoardDTO updateNum(int num) {
-		return null;
+		return sqlSession.selectOne("board.content", num);
 	}
 
 	@Override
 	public void update(BoardDTO dto) {
-
+		sqlSession.update("board.update", dto);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class BoardDaoImp implements BoardDAO {
 
 	@Override
 	public String getFile(int num) {
-		return null;
+		return sqlSession.selectOne("board.uploadfile", num);
 	}
 
 }

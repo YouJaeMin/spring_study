@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,12 @@ public class BoardController {
 	public ModelAndView viewMethod(int currentPage, int num) {
 		ModelAndView mav = new ModelAndView();
 		BoardDTO dto = service.contentProcess(num);
+
+		if (dto.getUpload() != null && dto.getUpload().indexOf("_") > 0) {
+			String filename = dto.getUpload().split("_")[1];
+			dto.setUpload(filename);
+		}
+
 		mav.addObject("dto", dto);
 		mav.addObject("currentPage", currentPage);
 		mav.setViewName("board/view");
@@ -104,14 +111,41 @@ public class BoardController {
 
 		if (dto.getRef() != 0) {
 			service.reStepProcess(dto);
-			int step = dto.getRe_step() + 1;
-			int level = dto.getRe_level() + 1;
-			dto.setRe_step(step);
-			dto.setRe_level(level);
+		} else {
+			service.insertProcess(dto);
 		}
 
-		service.insertProcess(dto);
 		return "redirect:/list.sb";
 	}
+
+	@RequestMapping("/contentdownload.sb")
+	public ModelAndView downMethod(int num) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("num", num);
+		mav.setViewName("download");
+		return mav;
+
+		// 뷰 , 모델명, 모델값
+		// return new ModelAndView("download","num",num);
+	}
+
+	@RequestMapping(value = "/update.sb", method = RequestMethod.GET)
+	public ModelAndView updateMethod(int num, int currentPage) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", service.updateSelectProcess(num));
+		mav.addObject("currentPage", currentPage);
+		mav.setViewName("board/update");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/update.sb", method = RequestMethod.POST)
+	public ModelAndView updateProc(BoardDTO dto, int currentPage, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		service.updateProcess(dto, request);
+		mav.addObject("currentPage", currentPage);
+		mav.setViewName("redirect:/list.sb");
+		return mav;
+	}
+	
 
 }
