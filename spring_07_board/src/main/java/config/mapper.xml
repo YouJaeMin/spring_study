@@ -63,6 +63,9 @@
 		where num = #{num}
 	</update>
 	
+	<delete id="delete" parameterType="int">
+		delete from board where num=#{num}
+	</delete>
 	
 </mapper>
 

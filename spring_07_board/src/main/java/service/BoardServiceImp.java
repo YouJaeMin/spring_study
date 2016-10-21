@@ -89,13 +89,22 @@ public class BoardServiceImp implements BoardService {
 				e.printStackTrace();
 			}
 		}
-		dto.setIp(request.getRemoteAddr());
 		dao.update(dto);
 	}
 
 	@Override
-	public String deleteProcess(int num, HttpServletRequest request) {
-		return null;
+	public void deleteProcess(int num, HttpServletRequest request) {
+
+		String filename = dao.getFile(num);
+		// 파일이 있으면
+		if (filename != null) {
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String saveDirectory = root + "temp" + File.separator;
+			File fe = new File(saveDirectory, filename);
+			fe.delete();
+		}
+
+		dao.delete(num);
 	}
 
 }
