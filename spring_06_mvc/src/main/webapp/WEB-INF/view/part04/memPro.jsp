@@ -12,6 +12,11 @@
 	<p>나이 : ${age }</p>
 	<hr />
 	
+	<p>이름 :${memDTO.name}</p>
+	<p>나이 :${memDTO.age}</p>
+	
+	<hr />
+	
 	<p>이름 : ${dto.name}</p>
 	<p>나이 : ${dto.age}</p>
 </body>
