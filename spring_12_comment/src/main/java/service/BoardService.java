@@ -15,4 +15,6 @@ public interface BoardService {
 	
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto);
 	
+	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto);
+	
 }// end interface

@@ -31,6 +31,8 @@ increment by 1
 nocache
 nocycle;
 
+alter table tbl_reply add rupload varchar2(1000);
+
 insert into TBL_BOARD values(board_bno_seq.nextval,'리스트1','내용1','미상',sysdate,0);
 insert into TBL_BOARD values(board_bno_seq.nextval,'리스트2','내용2','미상2',sysdate,0);
 select * from tbl_board;

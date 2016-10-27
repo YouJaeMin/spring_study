@@ -50,4 +50,9 @@ public class BoardController {
 		return service.replyDeleteProcess(rdto);
 	}
 	
+	@RequestMapping("/replyUpdate.do")
+	public @ResponseBody List<ReplyDTO> replyUpdateListPage(ReplyDTO rdto){
+		return service.replyUpdateProcess(rdto);
+	}
+	
 }

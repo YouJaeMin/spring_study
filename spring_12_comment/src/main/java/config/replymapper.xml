@@ -19,4 +19,9 @@
 		where rno=#{rno}
 	</delete>
 	
+	<update id="r_update" parameterType="dto.ReplyDTO">
+		update tbl_reply set replytext=#{replytext}
+		where rno=#{rno}
+	</update>
+	
 </mapper>

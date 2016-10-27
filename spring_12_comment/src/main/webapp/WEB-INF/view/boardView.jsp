@@ -9,61 +9,114 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.modifyShow {
+	display: block;
+	position: absolute;
+	top: 150px;
+	left: 200px;
+	width: 400px;
+	height: 150px;
+	z-index: 1000;
+	border: 1px solid black;
+	background-color: yellow;
+	text-align: center;
+}
+
+.modifyHide {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+}
+</style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-<!-- <script src="https://cdnjs.com/libraries/handlebars.js"></script> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <script type="text/javascript">
 	Handlebars.registerHelper("newDate", function(timeValue) {
-		var dateObj=new Date(timeValue);
-		var year=dateObj.getFullYear();
-		var month=dateObj.getMonth()+1;
-		var date=dateObj.getDate();
-		return year+"/"+month+"/"+date;
-// 		return new Date(timeValue);
+		var dateObj = new Date(timeValue);
+		var year = dateObj.getFullYear();
+		var month = dateObj.getMonth() + 1;
+		var date = dateObj.getDate();
+		return year + "/" + month + "/" + date;
+		// 		return new Date(timeValue);
 	});
 
-	$(document).ready(function() {
-		$("#replyAddBtn").on("click",function() {
-				$.ajax({
-					type : "GET", // 메소드 get, post
-					dataType : "json", // 응답형식
-					url : "replyInsertList.do?bno="
-							+ '${boardDTO.bno}' + "&replytext="
-							+ $("#newReplyWriter").val()
-							+ "&replyer="
-							+ $("#newReplyText").val(), // 요청 주소
-					success : reply_list_result
-			});
-		});
+	var urno = "";
 
-		$(document).on("click", ".timeline button", function() {
-			switch ($(this).text()) {
-			case "delete":
-				$.ajax({
-					type : "POST",
-					dataType : "json",
-					url : "replyDelete.do",
-					data : "bno=${boardDTO.bno}&rno="+$(this).prop("id"),
-					success : reply_list_result
+	$(document).ready(
+			function() {
+
+				$("#modifyModal").addClass("modifyHide");
+
+				$("#replyAddBtn").on("click",function() {
+							$.ajax({
+								type : "GET", // 메소드 get, post
+								dataType : "json", // 응답형식
+								url : "replyInsertList.do?bno="
+										+ '${boardDTO.bno}' + "&replytext="
+										+ $("#newReplyWriter").val()
+										+ "&replyer="
+										+ $("#newReplyText").val(), // 요청 주소
+								success : reply_list_result
+							});
+						});
+
+				$(document).on("click",	".timeline button",	function() {
+							switch ($(this).text()) {
+							case "delete":
+								$.ajax({
+									type : "POST",
+									dataType : "json",
+									url : "replyDelete.do",
+									data : "bno=${boardDTO.bno}&rno="
+											+ $(this).prop("id"),
+									success : reply_list_result
+								});
+								break;
+
+							case "update":
+								urno = $(this).prop("id");
+								$("#modifyModal").removeClass("modifyHide");
+								$("#modifyModal").addClass("modifyShow");
+								break;
+							}
+						});
+
+				$('#btnClose').on('click', function() {
+					$('#modifyModal').removeClass('modifyShow');
+					$('#modifyModal').addClass('modifyHide');
+					urno = "";
 				});
-				break;
+				
+				$('#btnModify').on('click', function() {
+					$.ajax({
+						type : "POST",
+						dataType : "json",
+						url : "replyUpdate.do",
+						data : "bno=${boardDTO.bno}&rno=" +urno +"&replytext="+$("#updateReplyText").val(),
+						success : reply_list_result
+					});
+					$("#updateReplyText").val('');
+					$('#modifyModal').removeClass('modifyShow');
+					$('#modifyModal').addClass('modifyHide');
+					urno = "";
+				});
 
-			case "update":
-
-				break;
-			}			
-		});
-	});
+			});
 
 	function reply_list_result(data) {
 		$(".timeline").empty();
 		$(".timeline")
 				.append(
-						'<li class="time-label" id="repliesDiv"><span class="bg-green"> Replies List <small id="replycntSmall"> [ '+data.length+' ] </small>	</span></li>');
-		$.each(data,function(index, value) {
+						'<li class="time-label" id="repliesDiv"><span class="bg-green"> Replies List <small id="replycntSmall"> [ '
+								+ data.length + ' ] </small>	</span></li>');
+		$
+				.each(
+						data,
+						function(index, value) {
 							// 			$(".timeline").append("<li class='time_sub' id='"+value.rno+"'>"+"<p>"+value.replyer+"</p>"
 							// 			+"<p>"+value.replytext+"</p>"
 							// 			+"<p>"+value.regdate+"</p>"
@@ -71,8 +124,8 @@
 							// 			+"</li>");
 
 							var source = "<li class='time_sub' id='{{rno}}'><p>{{replyer}}</p>"
-							+"<p>{{replytext}}</p><p>{{newDate regdate}}</p>"
-							+"<p><button id='{{rno}}'>delete</button> <button id='{{rno}}'>update</button></p></li>";
+									+ "<p>{{replytext}}</p><p>{{newDate regdate}}</p>"
+									+ "<p><button id='{{rno}}'>delete</button> <button id='{{rno}}'>update</button></p></li>";
 							var template = Handlebars.compile(source);
 							$(".timeline").append(template(value));
 						});
@@ -140,12 +193,14 @@
 				<li class="time_sub" id="${replyDTO.rno}">
 					<p>${replyDTO.replyer}</p>
 					<p>${replyDTO.replytext }</p>
-					<p><fmt:formatDate value="${replyDTO.regdate}" pattern="yyyy/MM/dd" dateStyle="short" /></p>
+					<p>
+						<fmt:formatDate value="${replyDTO.regdate}" pattern="yyyy/MM/dd"
+							dateStyle="short" />
+					</p>
 					<p>
 						<button id="${replyDTO.rno }">delete</button>
 						<button id="${replyDTO.rno }">update</button>
 					</p>
-
 				</li>
 			</c:forEach>
 		</ul>
@@ -157,6 +212,19 @@
 			</ul>
 		</div>
 
+		<!-- Modal -->
+		<div id="modifyModal">
+			<p>
+				<label for="updateReplyText">Reply Text</label> 
+				<input
+					class="form-control" type="text" placeholder="REPLY TEXT"
+					id="updateReplyText">
+			</p>
+			<p>
+				<button id="btnModify">Modify</button>
+				<button id="btnClose">Close</button>
+			</p>
+		</div>
 
 
 	</div>
