@@ -52,4 +52,7 @@ select b.*,	r.*
 		
 select * from tbl_reply
 		where bno=1 order by rno desc;
+		
+select * from tbl_board
+order by bno desc
 

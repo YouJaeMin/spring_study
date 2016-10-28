@@ -77,11 +77,13 @@
 
 		<tr>
 			<th>파일</th>
-			<td colspan="3"><c:if test="${!empty dto.upload}">
+			<td colspan="3">
+				<c:if test="${!empty dto.upload}">
 					<a href="contentdownload.sb?num=${dto.num}"> ${dto.upload} <%-- 					${fn:split(dto.upload,"_")[1]}  --%>
 						<!-- _ 뒤에 있는 글을 가지고 온다 --> <%-- 					${fn:substringAfter(dto.upload,"_")} --%>
 					</a>
-				</c:if> <c:if test="${empty dto.upload }">
+				</c:if> 
+				<c:if test="${empty dto.upload }">
 					<c:out value="첨부파일 없음" />
 				</c:if></td>
 		</tr>

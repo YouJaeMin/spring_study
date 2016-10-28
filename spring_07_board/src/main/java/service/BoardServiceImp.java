@@ -103,7 +103,6 @@ public class BoardServiceImp implements BoardService {
 			File fe = new File(saveDirectory, filename);
 			fe.delete();
 		}
-
 		dao.delete(num);
 	}
 

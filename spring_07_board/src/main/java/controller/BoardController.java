@@ -124,7 +124,6 @@ public class BoardController {
 		mav.addObject("num", num);
 		mav.setViewName("download");
 		return mav;
-
 		// 뷰 , 모델명, 모델값
 		// return new ModelAndView("download","num",num);
 	}
