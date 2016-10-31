@@ -63,28 +63,31 @@ public class BoardServiceImp implements BoardService {
 		String root = request.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "temp" + File.separator;
 
-		MultipartFile file = rdto.getFilename();
-		// 수정된 첨부 파일이 있으면
-		if (!file.isEmpty()) {
-			// 중복파일명을 처리하기 위해 난수 발생
-			UUID random = UUID.randomUUID();
-			// 기존파일이 있으면
-			if (filename != null) {
-				File fe = new File(saveDirectory, filename);
-				fe.delete();
-			}
-			String fileName = file.getOriginalFilename();
-			rdto.setRupload(random + "_" + fileName);
-			File ff = new File(saveDirectory, random + "_" + fileName);
-			try {
-				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+		if (rdto.getFilename() != null) {
+
+			MultipartFile file = rdto.getFilename();
+			// 수정된 첨부 파일이 있으면
+			if (!file.isEmpty()) {
+				// 중복파일명을 처리하기 위해 난수 발생
+				UUID random = UUID.randomUUID();
+				// 기존파일이 있으면
+				if (filename != null) {
+					File fe = new File(saveDirectory, filename);
+					fe.delete();
+				}
+				String fileName = file.getOriginalFilename();
+				rdto.setRupload(random + "_" + fileName);
+				File ff = new File(saveDirectory, random + "_" + fileName);
+				try {
+					FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		
+
 		dao.replyUpdateMethod(rdto);
 		return dao.replyListMethod(rdto.getBno());
 	}

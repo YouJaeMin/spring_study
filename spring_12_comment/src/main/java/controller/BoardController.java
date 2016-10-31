@@ -44,8 +44,7 @@ public class BoardController {
 	public ModelAndView boardViewPage(int bno) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardDTO", service.boardViewProcess(bno));
-		// mav.setViewName("boardView");
-		mav.setViewName("boardView2");
+		mav.setViewName("boardView3");
 		return mav;
 	}
 
